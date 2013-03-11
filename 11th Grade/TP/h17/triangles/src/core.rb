@@ -43,3 +43,38 @@ class Triangle
 
 	private :line_len
 end
+
+class REPL
+	attr_reader :point_stack, :triangle
+
+	class << self
+		
+		@points_stack = Array.new
+
+		def start
+			loop do
+				print '> '; input = gets.chomp
+				evaluate input
+			end
+		end
+
+		def evaluate input
+			@points_stack = Array.new if @points_stack.nil?
+			case input
+				when input.match(/[\d+; ?\d+]/) do
+					coords = input.scan(/[\d+; ?\d+]/).map {|x| x.scan /\d+/}.flatten.map {|x| x.to_i}
+					@points_stack.push Point.new(coords.first, coords.last)
+					p = @points_stack.last
+					if @points_stack.count == 3
+						@triangle = Triangle.new(@points_stack[0], @points_stack[1], @points_stack[2])
+						@points_stack = Array.new
+						return p, @triangle
+					end
+					return p
+				end
+				
+				when input.match(/exit/) then abort('Bye.')
+			end
+		end
+	end
+end

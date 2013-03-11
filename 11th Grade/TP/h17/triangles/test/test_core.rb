@@ -35,4 +35,14 @@ class TemplateTest < MiniTest::Unit::TestCase
 	def test_bisector
 		assert_equal 45, @t.bisector(@p3, @p1, @p2)
 	end
+
+	def test_evaluate
+		#testing creating points
+		assert_equal 1, REPL.evaluate('1; 1]').x
+		assert_equal 4, REPL.evaluate('1; 4]').y
+
+		#testing creating Triangle
+		p3, triangle = REPL.evaluate('5; 1]')
+		assert_equal 1, triangle.p1.x
+	end
 end
