@@ -37,42 +37,9 @@ class Triangle
 		return angle(@p1, @p2, @p3), angle(@p1, @p3, @p2), angle(@p2, @p1, @p3)
 	end
 
+	def bisector p1, p2, p3
+		angle(p1, p2, p3)/2
+	end
+
 	private :line_len
 end
-
-loop do
-	b = binding
-	print "> "; input = gets.chomp
-	b.eval input
-end
-
-#points = Array.new
-#lines = Array.new
-#triangles = Array.new
-#loop do
-#	print "> "
-#	input = gets.chomp
-#	if input.match (/p [0-9]+ [0-9]+/)
-#		x, y = input.scan(/\d/).map {|x| x.to_i} 
-#		point = Point.new x, y
-#		points.push point
-#		points.last.dump
-#		puts
-#	elsif input.match (/l [0-9]+ [0-9]+/)
-#		p1, p2 = input.scan(/\d/).map {|x| x.to_i} 
-#		line = Line.new points[p1], points[p2]
-#		lines.push line
-#		lines.last.dump
-#		puts
-#	elsif input.match (/t [0-9]+ [0-9]+/)
-#		l1, l2, l3 = input.scan(/\d/).map {|x| x.to_i} 
-#		triangle = Triangle.new lines[l1], lines[l2], lines[l3]
-#		triangles.push triangle
-#		triangles.last.dump
-#		puts
-#	elsif input.match (/pt [0-9]+/)
-#		n = input.scan(/\d/)[0].to_i
-#		t = triangle[n]
-#		puts lineSize(t.l1.p1, t.l1.p2) + lineSize(t.l2.p1, t.l2.p2) + lineSize(t.l3.p1, t.l3.p2)	
-#	end
-#end

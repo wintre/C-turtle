@@ -31,4 +31,8 @@ class TemplateTest < MiniTest::Unit::TestCase
 		alfa, beta, gamma = @t.angles
 		assert_equal 90, gamma 
 	end
+
+	def test_bisector
+		assert_equal 45, @t.bisector(@p3, @p1, @p2)
+	end
 end
