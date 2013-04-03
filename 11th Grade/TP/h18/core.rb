@@ -1,6 +1,6 @@
 Array.class_eval do
 	def to_hash
-		Hash[self]
+		Hash[*self.flatten]
 	end
 
 	def index_by
@@ -13,8 +13,8 @@ Array.class_eval do
 		count
 	end
 
-	def occurances_count
-		occurances = Hash[self.uniq.map {|x| a.select {|y| x == y}}.map {|z| [z.first, z.count]}]
+	def occurrences_count
+		occurances = Hash[self.uniq.map {|x| self.select {|y| x == y}}.map {|z| [z.first, z.count]}]
 		occurances.default = 0
 		occurances
 	end
