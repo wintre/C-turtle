@@ -5,7 +5,6 @@ describe Collection do
 		@songs = File.open("#{Dir.pwd}/catalog/songs.txt", "r").read
 		@artists = File.open("#{Dir.pwd}/catalog/artists.txt", "r").read
 		@c = Collection.new(@songs, @artists)
-		@c.parse
 	end
 
 	it "should reads songs from file" do
@@ -21,7 +20,7 @@ describe Collection do
 		@c.songs.first.artist.should eq('John Coltrane')
 		@c.songs.first.genre.should eq('Jazz')
 		@c.songs.first.subgenre.should eq('Bebop')
-		@c.songs.first.tags.should eq(['popular', 'cover'])
+		@c.songs.first.tags.should include('popular', 'cover')
 
 		@c.songs.last.subgenre.should eq(nil)
 	end
@@ -37,5 +36,26 @@ describe Collection do
 	it "should can find song by its artists name" do
 		@c.find(artist: 'John Coltrane').first.name.should eq('My Favourite Things')
 		@c.find(artist: 'Bach').last.name.should eq('Goldberg Variations')
+	end
+
+	it "should add genre and subgenre to tags (smallcased)" do
+		@c.find(tags: %w[jazz bebop]).first.name.should eq('My Favourite Things')
+	end
+
+	it "should add the info from the artists dictionary to the catalog" do
+		@c.find(tags: %w[saxophone]).first.name.should eq('My Favourite Things')
+		@c.find(tags: 'saxophone').first.name.should eq('My Favourite Things')
+	end
+
+	it "should have option to make negative calls to 'find' with !" do
+		@c.find(tags: %w[jazz cover!]).first.name.should eq('Alabama')
+	end
+
+	it "should return all songs if 'find' receive no arguments" do
+		@c.find().count.should eq(20)
+	end
+
+	it "should return empty list if 'find' have no matches" do
+		@c.find(artist: 'Lil Wayne').should eq([]) # Lil is not an artist = /
 	end
 end
