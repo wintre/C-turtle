@@ -1,0 +1,5 @@
+{
+	  'John Coltrane' => %w[saxophone],
+		'Bach' => %w[piano polyphony],
+}
+

@@ -1,0 +1,5 @@
+
+guard "rspec" do
+	watch(%r{^src/(.+)\.rb$}) {|f| "spec/#{f[1]}_spec.rb"}
+	watch(%r{^spec/.+_spec\.rb$})
+end
