@@ -56,6 +56,14 @@ describe Collection do
 	end
 
 	it "should return empty list if 'find' have no matches" do
-		@c.find(artist: 'Lil Wayne').should eq([]) # Lil is not an artist = /
+		@c.find(artist: 'Lil Wayne').should eq([]) # Everybody knows that Lil is not an artist. :)
+	end
+
+	it "should can find songs by more then one parametar" do
+		@c.find(artist: 'John Coltrane', tags: 'melancholic').first.name.should eq('Alabama')
+	end
+
+	it "should can find songs by lambdas" do
+		@c.find(filter: ->(song) { song.name.start_with?('My') }).first.name.should eq('My Favourite Things')
 	end
 end

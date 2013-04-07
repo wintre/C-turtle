@@ -25,6 +25,8 @@ class Song
 		criteria.keys.each do |key|
 			if key == :tags
 				return match_tags? Array(criteria[key])
+			elsif key == :filter
+				return false unless criteria[key].call(self)
 			else
 				return false unless eval("@#{key.to_s}") == criteria[key]
 			end
